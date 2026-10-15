@@ -110,3 +110,23 @@ cd frontend
 npm install
 npm run dev
 ```
+
+---
+
+## 🌐 Free Cloud Deployment
+
+### 1. Backend on [Render](https://render.com/) (Web Service)
+- **Root Directory**: `backend`
+- **Environment**: `Go`
+- **Build Command**: `go build -o server ./cmd/api/main.go`
+- **Start Command**: `./server`
+- **Environment Variables**:
+  - `PORT`: `10000` (or leave default assigned by Render)
+  - `BASE_URL`: `https://your-service-name.onrender.com`
+  - `ALLOWED_ORIGINS`: `*` (or your Vercel URL)
+
+### 2. Frontend on [Vercel](https://vercel.com/)
+- **Root Directory**: `frontend`
+- **Framework Preset**: `Vite`
+- **Environment Variables**:
+  - `VITE_API_URL`: `https://your-service-name.onrender.com`
