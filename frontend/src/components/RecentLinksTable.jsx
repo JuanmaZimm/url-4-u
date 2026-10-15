@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Copy, Check, BarChart3, QrCode, ExternalLink, MousePointerClick, RefreshCw } from 'lucide-react';
-import { getQrCodeUrl } from '../services/api';
+import { Copy, Check, BarChart3, QrCode, MousePointerClick, RefreshCw } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function RecentLinksTable({ links, onRefresh, onOpenAnalytics, onOpenQR }) {
+  const { t, i18n } = useTranslation();
   const [copiedCode, setCopiedCode] = useState(null);
 
   const handleCopy = (code, shortUrl) => {
@@ -16,19 +17,19 @@ export default function RecentLinksTable({ links, onRefresh, onOpenAnalytics, on
       <div className="flex items-center justify-between mb-4">
         <div>
           <h2 className="text-xl font-bold text-slate-100 flex items-center gap-2">
-            <span>Tus Enlaces Recientes</span>
+            <span>{t('recent.title')}</span>
             <span className="text-xs bg-slate-800 text-slate-400 font-semibold px-2 py-0.5 rounded-full border border-slate-700">
               {links.length}
             </span>
           </h2>
           <p className="text-xs text-slate-400">
-            Historial de URLs acortadas almacenadas localmente en SQLite
+            {t('recent.subtitle')}
           </p>
         </div>
 
         <button
           onClick={onRefresh}
-          title="Actualizar listado"
+          title={t('recent.refresh')}
           className="p-2 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg border border-slate-700 transition-colors cursor-pointer"
         >
           <RefreshCw className="w-4 h-4" />
@@ -38,9 +39,9 @@ export default function RecentLinksTable({ links, onRefresh, onOpenAnalytics, on
       {links.length === 0 ? (
         <div className="text-center py-12 bg-slate-800/30 border border-slate-800 rounded-2xl text-slate-500">
           <MousePointerClick className="w-10 h-10 mx-auto mb-2 opacity-40 text-indigo-400" />
-          <p className="text-sm font-medium">Aún no has generado ningún enlace corto</p>
+          <p className="text-sm font-medium">{t('recent.emptyTitle')}</p>
           <p className="text-xs text-slate-500 mt-1">
-            Pega una URL arriba para comenzar a medir analíticas y generar QRs
+            {t('recent.emptySubtitle')}
           </p>
         </div>
       ) : (
@@ -48,11 +49,11 @@ export default function RecentLinksTable({ links, onRefresh, onOpenAnalytics, on
           <table className="w-full text-left text-sm text-slate-300">
             <thead className="bg-slate-900/60 text-xs uppercase tracking-wider text-slate-400 border-b border-slate-700/60 font-semibold">
               <tr>
-                <th className="py-3.5 px-4">Enlace Corto</th>
-                <th className="py-3.5 px-4 hidden md:table-cell">URL Destino</th>
-                <th className="py-3.5 px-4 text-center">Clics</th>
-                <th className="py-3.5 px-4 hidden sm:table-cell">Creado</th>
-                <th className="py-3.5 px-4 text-right">Acciones</th>
+                <th className="py-3.5 px-4">{t('recent.thShort')}</th>
+                <th className="py-3.5 px-4 hidden md:table-cell">{t('recent.thOriginal')}</th>
+                <th className="py-3.5 px-4 text-center">{t('recent.thClicks')}</th>
+                <th className="py-3.5 px-4 hidden sm:table-cell">{t('recent.thCreated')}</th>
+                <th className="py-3.5 px-4 text-right">{t('recent.thActions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/80">
@@ -71,7 +72,7 @@ export default function RecentLinksTable({ links, onRefresh, onOpenAnalytics, on
                       <button
                         onClick={() => handleCopy(link.short_code, link.short_url)}
                         className="text-slate-400 hover:text-white p-1 rounded hover:bg-slate-700 transition-colors cursor-pointer"
-                        title="Copiar al portapapeles"
+                        title={t('recent.copyTitle')}
                       >
                         {copiedCode === link.short_code ? (
                           <Check className="w-3.5 h-3.5 text-emerald-400" />
@@ -96,7 +97,7 @@ export default function RecentLinksTable({ links, onRefresh, onOpenAnalytics, on
                   </td>
 
                   <td className="py-3 px-4 hidden sm:table-cell text-xs text-slate-400">
-                    {new Date(link.created_at).toLocaleDateString(undefined, {
+                    {new Date(link.created_at).toLocaleDateString(i18n.language, {
                       month: 'short',
                       day: 'numeric',
                       hour: '2-digit',
@@ -109,7 +110,7 @@ export default function RecentLinksTable({ links, onRefresh, onOpenAnalytics, on
                       <button
                         onClick={() => onOpenQR(link)}
                         className="p-1.5 text-slate-300 hover:text-white bg-slate-700/60 hover:bg-slate-700 rounded-lg transition-colors cursor-pointer border border-slate-600/40"
-                        title="Ver Código QR"
+                        title={t('recent.qrTitle')}
                       >
                         <QrCode className="w-3.5 h-3.5" />
                       </button>
@@ -117,7 +118,7 @@ export default function RecentLinksTable({ links, onRefresh, onOpenAnalytics, on
                       <button
                         onClick={() => onOpenAnalytics(link.short_code)}
                         className="p-1.5 text-purple-300 hover:text-white bg-purple-500/10 hover:bg-purple-600 rounded-lg border border-purple-500/20 transition-colors cursor-pointer"
-                        title="Ver Estadísticas"
+                        title={t('recent.analyticsTitle')}
                       >
                         <BarChart3 className="w-3.5 h-3.5" />
                       </button>

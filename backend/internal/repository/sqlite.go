@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/juan-manuel-zimmermann/url-4-u/backend/internal/model"
+	"github.com/JuanmaZimm/url-4-u/backend/internal/model"
 	_ "modernc.org/sqlite"
 )
 

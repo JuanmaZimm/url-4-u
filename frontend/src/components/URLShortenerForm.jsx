@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, Sparkles, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function URLShortenerForm({ onShortened, isLoading }) {
+  const { t } = useTranslation();
   const [originalUrl, setOriginalUrl] = useState('');
   const [customAlias, setCustomAlias] = useState('');
   const [showAliasInput, setShowAliasInput] = useState(false);
@@ -12,14 +14,14 @@ export default function URLShortenerForm({ onShortened, isLoading }) {
     setError('');
 
     if (!originalUrl.trim()) {
-      setError('Por favor ingresa una URL válida');
+      setError(t('form.errors.empty'));
       return;
     }
 
     try {
       new URL(originalUrl.startsWith('http') ? originalUrl : `https://${originalUrl}`);
     } catch {
-      setError('Formato de URL no válido. Asegúrate de incluir http:// o https://');
+      setError(t('form.errors.invalid'));
       return;
     }
 
@@ -31,7 +33,7 @@ export default function URLShortenerForm({ onShortened, isLoading }) {
       setCustomAlias('');
       setShowAliasInput(false);
     } catch (err) {
-      setError(err.message || 'Error al acortar la URL');
+      setError(err.message || t('form.errors.default'));
     }
   };
 
@@ -41,7 +43,7 @@ export default function URLShortenerForm({ onShortened, isLoading }) {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Ingresa el enlace largo
+              {t('form.label')}
             </label>
             <div className="relative flex items-center">
               <div className="absolute left-4 text-slate-400">
@@ -54,7 +56,7 @@ export default function URLShortenerForm({ onShortened, isLoading }) {
                   setOriginalUrl(e.target.value);
                   if (error) setError('');
                 }}
-                placeholder="https://ejemplo.com/tu-articulo-o-enlace-muy-largo..."
+                placeholder={t('form.placeholder')}
                 className="w-full pl-12 pr-4 py-3.5 bg-slate-900/90 border border-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 rounded-xl text-white placeholder-slate-500 text-base transition-all outline-none"
                 disabled={isLoading}
               />
@@ -68,14 +70,14 @@ export default function URLShortenerForm({ onShortened, isLoading }) {
               className="text-xs sm:text-sm text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1.5 transition-colors"
             >
               <Sparkles className="w-4 h-4" />
-              {showAliasInput ? 'Ocultar alias personalizado' : 'Personalizar enlace (alias opcional)'}
+              {showAliasInput ? t('form.hideAlias') : t('form.showAlias')}
             </button>
           </div>
 
           {showAliasInput && (
             <div className="animate-fadeIn transition-all">
               <label className="block text-xs font-medium text-slate-400 mb-1.5">
-                Alias personalizado (3-30 caracteres alfanuméricos)
+                {t('form.aliasLabel')}
               </label>
               <div className="flex rounded-xl overflow-hidden border border-slate-700 bg-slate-900/90 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20">
                 <span className="px-3.5 py-2.5 bg-slate-800/80 text-slate-400 text-sm border-r border-slate-700 select-none flex items-center">
@@ -85,7 +87,7 @@ export default function URLShortenerForm({ onShortened, isLoading }) {
                   type="text"
                   value={customAlias}
                   onChange={(e) => setCustomAlias(e.target.value.replace(/[^a-zA-Z0-9_-]/g, ''))}
-                  placeholder="mi-enlace-especial"
+                  placeholder={t('form.aliasPlaceholder')}
                   maxLength={30}
                   className="w-full px-3 py-2.5 bg-transparent text-white placeholder-slate-500 text-sm outline-none"
                   disabled={isLoading}
@@ -109,11 +111,11 @@ export default function URLShortenerForm({ onShortened, isLoading }) {
             {isLoading ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                <span>Generando URL corta y QR...</span>
+                <span>{t('form.loadingBtn')}</span>
               </>
             ) : (
               <>
-                <span>Acortar Enlace</span>
+                <span>{t('form.shortenBtn')}</span>
                 <ArrowRight className="w-5 h-5" />
               </>
             )}

@@ -1,8 +1,10 @@
 import React from 'react';
-import { X, Download, QrCode, ExternalLink } from 'lucide-react';
+import { X, Download } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { getQrCodeUrl } from '../services/api';
 
 export default function QRModal({ link, onClose }) {
+  const { t } = useTranslation();
   if (!link) return null;
 
   const qrImageUrl = getQrCodeUrl(link.short_code, 400);
@@ -54,7 +56,7 @@ export default function QRModal({ link, onClose }) {
           className="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 transition-colors cursor-pointer"
         >
           <Download className="w-4 h-4" />
-          Descargar Código QR (PNG)
+          {t('qrModal.downloadBtn')}
         </button>
       </div>
     </div>

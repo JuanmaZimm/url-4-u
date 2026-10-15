@@ -1,0 +1,83 @@
+{
+  "navbar": {
+    "version": "v1.0 • Go + React",
+    "github": "GitHub",
+    "language": "Language",
+    "english": "English",
+    "spanish": "Spanish"
+  },
+  "hero": {
+    "badge": "Shortener + QR + Live Metrics",
+    "title1": "Shorten your links.",
+    "title2": "Track every click.",
+    "description": "Create short URLs with unique identifiers or custom aliases, generate instant QR codes ready to share, and inspect real-time visit analytics."
+  },
+  "features": {
+    "fastTitle": "Ultra Fast",
+    "fastDesc": "Low-latency HTTP engine written in Go with immediate concurrent redirects.",
+    "securityTitle": "Privacy & Security",
+    "securityDesc": "IP addresses hashed with SHA-256 to ensure complete privacy in analytics.",
+    "analyticsTitle": "Detailed Metrics",
+    "analyticsDesc": "Click count, timestamps, traffic referrers, browsers, and device types."
+  },
+  "form": {
+    "label": "Enter your long link",
+    "placeholder": "https://example.com/your-very-long-url-or-article...",
+    "showAlias": "Customize link (optional alias)",
+    "hideAlias": "Hide custom alias",
+    "aliasLabel": "Custom alias (3-30 alphanumeric characters)",
+    "aliasPlaceholder": "my-special-link",
+    "shortenBtn": "Shorten Link",
+    "loadingBtn": "Generating short URL & QR...",
+    "errors": {
+      "empty": "Please enter a valid URL",
+      "invalid": "Invalid URL format. Make sure to include http:// or https://",
+      "default": "Error shortening URL"
+    }
+  },
+  "result": {
+    "success": "Link shortened successfully!",
+    "shortUrlLabel": "Your short link:",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "originalUrlLabel": "Original destination:",
+    "viewAnalytics": "View Click Analytics",
+    "downloadQR": "Download QR",
+    "qrAlt": "QR for {{code}}"
+  },
+  "recent": {
+    "title": "Recent Links",
+    "subtitle": "History of shortened URLs stored locally in SQLite",
+    "refresh": "Refresh list",
+    "emptyTitle": "No short links generated yet",
+    "emptySubtitle": "Paste a URL above to start tracking analytics and generating QRs",
+    "thShort": "Short Link",
+    "thOriginal": "Destination URL",
+    "thClicks": "Clicks",
+    "thCreated": "Created",
+    "thActions": "Actions",
+    "copyTitle": "Copy to clipboard",
+    "qrTitle": "View QR Code",
+    "analyticsTitle": "View Analytics"
+  },
+  "qrModal": {
+    "downloadBtn": "Download QR Code (PNG)"
+  },
+  "analyticsModal": {
+    "title": "Analytics:",
+    "loading": "Fetching real-time metrics...",
+    "loadError": "Error loading metrics",
+    "noData": "No data recorded yet",
+    "totalClicks": "Total Clicks",
+    "trafficSources": "Traffic Sources",
+    "lastClick": "Last Click",
+    "noVisits": "No visits yet",
+    "referrers": "Referring Sites (Referrers)",
+    "devices": "Devices",
+    "browsers": "Browsers",
+    "recentActivity": "Recent Activity by Date"
+  },
+  "footer": {
+    "text": "URL-4-U • Built with <1>Go</1>, <3>React + Vite</3> and <5>SQLite</5>."
+  }
+}

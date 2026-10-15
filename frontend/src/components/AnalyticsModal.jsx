@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { X, BarChart3, MousePointerClick, Calendar, Globe, Monitor, Compass, Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { getUrlAnalytics } from '../services/api';
 
 export default function AnalyticsModal({ shortCode, onClose }) {
+  const { t, i18n } = useTranslation();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -17,19 +19,19 @@ export default function AnalyticsModal({ shortCode, onClose }) {
         setData(res);
       })
       .catch((err) => {
-        setError(err.message || 'Error al cargar las métricas');
+        setError(err.message || t('analyticsModal.loadError'));
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [shortCode]);
+  }, [shortCode, t]);
 
   if (!shortCode) return null;
 
   // Helper to render proportional metric bars
   const renderBars = (obj) => {
     if (!obj || Object.keys(obj).length === 0) {
-      return <p className="text-xs text-slate-500 italic">Sin datos registrados aún</p>;
+      return <p className="text-xs text-slate-500 italic">{t('analyticsModal.noData')}</p>;
     }
 
     const total = Object.values(obj).reduce((acc, curr) => acc + curr, 0) || 1;
@@ -70,7 +72,7 @@ export default function AnalyticsModal({ shortCode, onClose }) {
             </div>
             <div>
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                Analíticas: <span className="font-mono text-indigo-400">/r/{shortCode}</span>
+                {t('analyticsModal.title')} <span className="font-mono text-indigo-400">/r/{shortCode}</span>
               </h3>
               {data && (
                 <p className="text-xs text-slate-400 truncate max-w-sm sm:max-w-md">
@@ -93,7 +95,7 @@ export default function AnalyticsModal({ shortCode, onClose }) {
           {loading ? (
             <div className="py-16 text-center text-slate-400 flex flex-col items-center gap-3">
               <Loader2 className="w-8 h-8 animate-spin text-indigo-400" />
-              <p className="text-sm">Obteniendo métricas en tiempo real...</p>
+              <p className="text-sm">{t('analyticsModal.loading')}</p>
             </div>
           ) : error ? (
             <div className="py-12 text-center text-rose-400">
@@ -106,7 +108,7 @@ export default function AnalyticsModal({ shortCode, onClose }) {
                 <div className="bg-slate-900/70 border border-slate-700/60 p-4 rounded-xl">
                   <span className="text-xs text-slate-400 flex items-center gap-1.5 mb-1">
                     <MousePointerClick className="w-3.5 h-3.5 text-indigo-400" />
-                    Total Clics
+                    {t('analyticsModal.totalClicks')}
                   </span>
                   <div className="text-2xl font-black text-white font-mono">{data.total_clicks}</div>
                 </div>
@@ -114,7 +116,7 @@ export default function AnalyticsModal({ shortCode, onClose }) {
                 <div className="bg-slate-900/70 border border-slate-700/60 p-4 rounded-xl">
                   <span className="text-xs text-slate-400 flex items-center gap-1.5 mb-1">
                     <Globe className="w-3.5 h-3.5 text-emerald-400" />
-                    Fuentes de Tráfico
+                    {t('analyticsModal.trafficSources')}
                   </span>
                   <div className="text-2xl font-black text-white font-mono">
                     {Object.keys(data.top_referrers || {}).length}
@@ -124,15 +126,15 @@ export default function AnalyticsModal({ shortCode, onClose }) {
                 <div className="bg-slate-900/70 border border-slate-700/60 p-4 rounded-xl">
                   <span className="text-xs text-slate-400 flex items-center gap-1.5 mb-1">
                     <Calendar className="w-3.5 h-3.5 text-pink-400" />
-                    Último Clic
+                    {t('analyticsModal.lastClick')}
                   </span>
                   <div className="text-sm font-semibold text-slate-200 mt-1 truncate">
                     {data.last_clicked
-                      ? new Date(data.last_clicked).toLocaleTimeString(undefined, {
+                      ? new Date(data.last_clicked).toLocaleTimeString(i18n.language, {
                           hour: '2-digit',
                           minute: '2-digit',
                         })
-                      : 'Sin visitas'}
+                      : t('analyticsModal.noVisits')}
                   </div>
                 </div>
               </div>
@@ -143,7 +145,7 @@ export default function AnalyticsModal({ shortCode, onClose }) {
                 <div className="bg-slate-900/60 border border-slate-700/50 p-4 rounded-xl">
                   <h4 className="text-xs uppercase tracking-wider font-bold text-slate-400 flex items-center gap-1.5 mb-2">
                     <Globe className="w-3.5 h-3.5 text-indigo-400" />
-                    Sitios de Referencia (Referrers)
+                    {t('analyticsModal.referrers')}
                   </h4>
                   {renderBars(data.top_referrers)}
                 </div>
@@ -152,7 +154,7 @@ export default function AnalyticsModal({ shortCode, onClose }) {
                 <div className="bg-slate-900/60 border border-slate-700/50 p-4 rounded-xl">
                   <h4 className="text-xs uppercase tracking-wider font-bold text-slate-400 flex items-center gap-1.5 mb-2">
                     <Monitor className="w-3.5 h-3.5 text-emerald-400" />
-                    Dispositivos
+                    {t('analyticsModal.devices')}
                   </h4>
                   {renderBars(data.top_devices)}
                 </div>
@@ -161,7 +163,7 @@ export default function AnalyticsModal({ shortCode, onClose }) {
                 <div className="bg-slate-900/60 border border-slate-700/50 p-4 rounded-xl">
                   <h4 className="text-xs uppercase tracking-wider font-bold text-slate-400 flex items-center gap-1.5 mb-2">
                     <Compass className="w-3.5 h-3.5 text-purple-400" />
-                    Navegadores
+                    {t('analyticsModal.browsers')}
                   </h4>
                   {renderBars(data.top_browsers)}
                 </div>
@@ -170,7 +172,7 @@ export default function AnalyticsModal({ shortCode, onClose }) {
                 <div className="bg-slate-900/60 border border-slate-700/50 p-4 rounded-xl">
                   <h4 className="text-xs uppercase tracking-wider font-bold text-slate-400 flex items-center gap-1.5 mb-2">
                     <Calendar className="w-3.5 h-3.5 text-pink-400" />
-                    Actividad Reciente por Fecha
+                    {t('analyticsModal.recentActivity')}
                   </h4>
                   {renderBars(data.clicks_by_date)}
                 </div>

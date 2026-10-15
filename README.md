@@ -1,55 +1,56 @@
 # 🔗 URL-4-U
 
-> **URL-4-U** es un acortador de URLs moderno, rápido y ligero desarrollado en **Go** y **React + Vite**, con soporte para códigos QR instantáneos y un panel de analíticas en tiempo real.
+> **URL-4-U** is a modern, fast, and lightweight URL shortener built with **Go** and **React + Vite**, featuring instant QR code generation and real-time analytics.
 
 ---
 
-## 🚀 Características Principales
+## 🚀 Key Features
 
-- ✂️ **Acortador Inteligente**: Generación de identificadores cortos únicos en Base62 con soporte para alias personalizados.
-- 📱 **Generador de Códigos QR**: Exportación inmediata de códigos QR listos para escanear y descargar.
-- 📊 **Panel de Analíticas**: Métricas de clics en tiempo real, desglose temporal, fuentes de referencia (referrers), navegadores y tipos de dispositivo.
-- ⚡ **Alto Rendimiento en Go**: Arquitectura limpia con backend concurrente y eficiente en recursos.
-- 🎨 **UI Moderna y Reactiva**: Frontend desarrollado con React, Vite y Tailwind CSS.
-- 🐳 **Docker-Ready**: Puesta en marcha en un solo comando sin necesidad de instalar dependencias de sistema.
+- ✂️ **Smart Shortener**: Generates unique Base62 short IDs with custom alias support.
+- 📱 **QR Code Generator**: Instant export of scan-ready and downloadable QR codes.
+- 📊 **Analytics Dashboard**: Real-time click tracking, timeline trends, referrers, browsers, and device types.
+- ⚡ **High Performance with Go**: Clean architecture with a concurrent, resource-efficient backend engine.
+- 🎨 **Modern & Reactive UI**: Built with React, Vite, Tailwind CSS, and Lucide Icons.
+- 🌐 **Automatic Internationalization (i18n)**: Auto-detects device/browser language (English / Spanish) with instant manual switching and local persistence (`i18next`).
+- 🐳 **Docker-Ready**: Launch the entire stack with a single command without installing local dependencies.
 
 ---
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Tech Stack
 
-| Capa | Tecnología | Descripción |
+| Layer | Technology | Description |
 | :--- | :--- | :--- |
-| **Backend** | [Go (Golang) 1.22+](https://go.dev/) | API REST construida siguiendo el Standard Go Project Layout |
-| **Frontend** | [React 18](https://react.dev/) + [Vite](https://vitejs.dev/) | Single Page Application rápida y optimizada |
-| **Estilos** | [Tailwind CSS](https://tailwindcss.com/) | Diseño responsivo, minimalista y modo oscuro |
-| **Base de Datos** | [SQLite](https://sqlite.org/) | Base de datos embebida zero-config (sin servidores externos) |
-| **Contenedores**| [Docker](https://www.docker.com/) & Docker Compose | Entorno reproducible y aislado para desarrollo y demo |
+| **Backend** | [Go (Golang) 1.22+](https://go.dev/) | RESTful API adhering to the Standard Go Project Layout |
+| **Frontend** | [React 18](https://react.dev/) + [Vite](https://vitejs.dev/) | Fast, optimized Single Page Application |
+| **Styling** | [Tailwind CSS](https://tailwindcss.com/) | Responsive, minimalist dark mode design |
+| **Database** | [SQLite](https://sqlite.org/) | Embedded zero-config database (no external servers required) |
+| **Containers** | [Docker](https://www.docker.com/) & Docker Compose | Reproducible, isolated environment for development and deployment |
 
 ---
 
-## 🏛️ Arquitectura del Proyecto
+## 🏛️ Project Architecture
 
-El backend sigue las mejores prácticas del **Standard Go Layout** y principios de arquitectura en capas (Clean Architecture):
+The backend follows **Standard Go Layout** best practices and Clean Architecture principles:
 
 ```
 url-4-u/
 ├── backend/
 │   ├── cmd/
-│   │   └── api/                  # Punto de entrada de la aplicación (main.go)
-│   ├── internal/                 # Código privado de la aplicación
-│   │   ├── config/               # Configuración y variables de entorno
-│   │   ├── handler/              # Controladores HTTP (REST Handlers)
-│   │   ├── model/                # Entidades de dominio y DTOs
-│   │   ├── repository/           # Acceso a base de datos (SQLite/SQL)
-│   │   └── service/              # Lógica de negocio (Hashing Base62, QR, etc.)
-│   ├── pkg/                      # Paquetes utilitarios reutilizables
+│   │   └── api/                  # Application entrypoint (main.go)
+│   ├── internal/                 # Private application code
+│   │   ├── config/               # Configuration & environment variables
+│   │   ├── handler/              # HTTP controllers (REST Handlers)
+│   │   ├── model/                # Domain entities & DTOs
+│   │   ├── repository/           # Database access (SQLite/SQL)
+│   │   └── service/              # Business logic (Base62 hashing, QR, analytics)
+│   ├── pkg/                      # Reusable utility packages
 │   ├── Dockerfile
 │   └── go.mod
 ├── frontend/
 │   ├── src/
-│   │   ├── components/           # Componentes UI reutilizables
-│   │   ├── pages/                # Vistas principales (Home, Analytics, etc.)
-│   │   ├── services/             # Clientes de API HTTP
+│   │   ├── components/           # Reusable UI components
+│   │   ├── i18n/                 # Internationalization configurations & locales
+│   │   ├── services/             # HTTP API client services
 │   │   ├── App.jsx
 │   │   └── main.jsx
 │   ├── Dockerfile
@@ -61,33 +62,33 @@ url-4-u/
 
 ---
 
-## 📡 Especificación de la API REST
+## 📡 REST API Specification
 
-| Método | Endpoint | Descripción | Body / Parámetros |
+| Method | Endpoint | Description | Body / Parameters |
 | :--- | :--- | :--- | :--- |
-| `GET` | `/health` | Healthcheck del servicio | - |
-| `POST` | `/api/v1/urls` | Crea una nueva URL corta | `{ "original_url": "...", "custom_alias": "..." }` |
-| `GET` | `/r/:code` | Redirige a la URL original y registra métricas | Redirección HTTP `302 Found` |
-| `GET` | `/api/v1/urls/:code` | Obtiene detalles de un enlace corto | Retorna metadatos del link |
-| `GET` | `/api/v1/urls/:code/qr` | Genera y sirve el código QR (PNG/SVG) | Retorna imagen del QR |
-| `GET` | `/api/v1/urls/:code/analytics` | Obtiene analíticas y métricas de clics | Total de visitas, dispositivos, referrers, timeline |
-| `GET` | `/api/v1/urls` | Lista de enlaces creados recientemente | Parámetros de paginación (`limit`, `offset`) |
+| `GET` | `/health` | Service health check | - |
+| `POST` | `/api/v1/urls` | Creates a new shortened URL | `{ "original_url": "...", "custom_alias": "..." }` |
+| `GET` | `/r/:code` | Redirects to original URL and tracks analytics | HTTP `302 Found` redirection |
+| `GET` | `/api/v1/urls/:code` | Retrieves details for a short link | Returns link metadata |
+| `GET` | `/api/v1/urls/:code/qr` | Generates and serves QR code (PNG) | Returns QR code image |
+| `GET` | `/api/v1/urls/:code/analytics` | Retrieves click analytics and metrics | Total clicks, devices, referrers, timeline |
+| `GET` | `/api/v1/urls` | Lists recently created links | Pagination query params (`limit`, `offset`) |
 
 ---
 
-## 💾 Estrategia de Base de Datos (Zero-Config)
+## 💾 Database Strategy (Zero-Config)
 
-Para facilitar la evaluación por parte de recruiters y evitar la instalación obligatoria de motores pesados como PostgreSQL o MySQL:
+Designed for easy evaluation and zero setup friction:
 
-- Se utiliza **SQLite** (a través de un driver puro Go como `modernc.org/sqlite` o `mattn/go-sqlite3`).
-- **Ventaja**: No requiere instalar ni configurar ningún gestor de base de datos; la base se crea automáticamente en un archivo local (`url4u.db`).
-- **Abstracción**: El repositorio de datos implementa interfaces en Go, permitiendo migrar a PostgreSQL en producción con solo cambiar la cadena de conexión.
+- Uses **SQLite** (via pure Go SQLite driver).
+- **Advantage**: No database server installation or configuration required; the database is automatically created in a local file (`url4u.db`).
+- **Clean Abstraction**: The data repository implements Go interfaces, making it straightforward to switch to PostgreSQL or MySQL in production with a single connection string change.
 
 ---
 
-## 🚦 Cómo Iniciar el Proyecto
+## 🚦 Getting Started
 
-### Opción 1: Con Docker Compose (Recomendada para pruebas rápidas)
+### Option 1: Docker Compose (Recommended)
 
 ```bash
 docker compose up --build
@@ -95,7 +96,7 @@ docker compose up --build
 - Frontend: `http://localhost:5173`
 - Backend API: `http://localhost:8080`
 
-### Opción 2: Modo Local
+### Option 2: Local Development
 
 **Backend:**
 ```bash

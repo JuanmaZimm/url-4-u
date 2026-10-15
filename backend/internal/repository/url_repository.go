@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	"github.com/juan-manuel-zimmermann/url-4-u/backend/internal/model"
+	"github.com/JuanmaZimm/url-4-u/backend/internal/model"
 )
 
 // URLRepository defines the storage interface for URLs and analytics

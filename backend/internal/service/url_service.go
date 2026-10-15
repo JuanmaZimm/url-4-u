@@ -10,9 +10,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/juan-manuel-zimmermann/url-4-u/backend/internal/model"
-	"github.com/juan-manuel-zimmermann/url-4-u/backend/internal/repository"
-	"github.com/juan-manuel-zimmermann/url-4-u/backend/pkg/base62"
+	"github.com/JuanmaZimm/url-4-u/backend/internal/model"
+	"github.com/JuanmaZimm/url-4-u/backend/internal/repository"
+	"github.com/JuanmaZimm/url-4-u/backend/pkg/base62"
 )
 
 var (

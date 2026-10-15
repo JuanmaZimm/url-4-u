@@ -7,8 +7,10 @@ import AnalyticsModal from './components/AnalyticsModal';
 import QRModal from './components/QRModal';
 import { shortenUrl, getRecentUrls } from './services/api';
 import { Sparkles, ShieldCheck, Zap, BarChart2 } from 'lucide-react';
+import { useTranslation, Trans } from 'react-i18next';
 
 export default function App() {
+  const { t } = useTranslation();
   const [recentLinks, setRecentLinks] = useState([]);
   const [latestResult, setLatestResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,18 +50,18 @@ export default function App() {
         <div className="text-center max-w-3xl mx-auto mb-10 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-semibold tracking-wide uppercase">
             <Sparkles className="w-3.5 h-3.5" />
-            Acortador + QR + Métricas en Vivo
+            {t('hero.badge')}
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-tight">
-            Acorta tus enlaces. <br className="hidden sm:inline" />
+            {t('hero.title1')} <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">
-              Mide cada interacción.
+              {t('hero.title2')}
             </span>
           </h1>
 
           <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto">
-            Crea URLs cortas con identificadores únicos o alias personalizados, genera códigos QR instantáneos para impresión o compartir, y consulta analíticas de visitas en tiempo real.
+            {t('hero.description')}
           </p>
         </div>
 
@@ -81,9 +83,9 @@ export default function App() {
               <Zap className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-white">Ultra Rápido</h4>
+              <h4 className="text-sm font-bold text-white">{t('features.fastTitle')}</h4>
               <p className="text-xs text-slate-400 mt-1">
-                Motor HTTP de baja latencia escrito en Go con redirecciones concurrentes inmediatas.
+                {t('features.fastDesc')}
               </p>
             </div>
           </div>
@@ -93,9 +95,9 @@ export default function App() {
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-white">Privacidad y Seguridad</h4>
+              <h4 className="text-sm font-bold text-white">{t('features.securityTitle')}</h4>
               <p className="text-xs text-slate-400 mt-1">
-                IPs anonimizadas mediante hash SHA-256 para respetar la privacidad en analíticas.
+                {t('features.securityDesc')}
               </p>
             </div>
           </div>
@@ -105,9 +107,9 @@ export default function App() {
               <BarChart2 className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-white">Métricas Detalladas</h4>
+              <h4 className="text-sm font-bold text-white">{t('features.analyticsTitle')}</h4>
               <p className="text-xs text-slate-400 mt-1">
-                Conteo de clics, fecha, fuentes de tráfico (referrers), navegadores y tipos de dispositivo.
+                {t('features.analyticsDesc')}
               </p>
             </div>
           </div>
@@ -141,9 +143,14 @@ export default function App() {
       {/* Footer */}
       <footer className="border-t border-slate-900 py-8 text-center text-xs text-slate-500">
         <p>
-          URL-4-U • Construido con <span className="text-indigo-400 font-medium">Go</span>,{' '}
-          <span className="text-indigo-400 font-medium">React + Vite</span> y{' '}
-          <span className="text-indigo-400 font-medium">SQLite</span>.
+          <Trans
+            i18nKey="footer.text"
+            components={{
+              1: <span className="text-indigo-400 font-medium" />,
+              3: <span className="text-indigo-400 font-medium" />,
+              5: <span className="text-indigo-400 font-medium" />
+            }}
+          />
         </p>
       </footer>
     </div>

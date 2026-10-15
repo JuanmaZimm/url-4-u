@@ -1,4 +1,4 @@
-module github.com/juan-manuel-zimmermann/url-4-u/backend
+module github.com/JuanmaZimm/url-4-u/backend
 
 go 1.23.0
 

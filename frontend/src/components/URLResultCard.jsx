@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Copy, Check, QrCode, BarChart3, ExternalLink, Download } from 'lucide-react';
+import { Copy, Check, BarChart3, ExternalLink, Download } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { getQrCodeUrl } from '../services/api';
 
 export default function URLResultCard({ result, onOpenAnalytics }) {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
   if (!result) return null;
@@ -39,11 +41,11 @@ export default function URLResultCard({ result, onOpenAnalytics }) {
         <div className="flex-1 w-full space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            ¡Enlace acortado con éxito!
+            {t('result.success')}
           </div>
 
           <div>
-            <span className="text-xs text-slate-400 block mb-1">Tu enlace corto:</span>
+            <span className="text-xs text-slate-400 block mb-1">{t('result.shortUrlLabel')}</span>
             <div className="flex items-center gap-2 bg-slate-900/90 border border-slate-700 rounded-xl p-2.5">
               <a
                 href={result.short_url}
@@ -62,12 +64,12 @@ export default function URLResultCard({ result, onOpenAnalytics }) {
                 {copied ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-emerald-300" />
-                    <span>¡Copiado!</span>
+                    <span>{t('result.copied')}</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    <span>Copiar</span>
+                    <span>{t('result.copy')}</span>
                   </>
                 )}
               </button>
@@ -75,7 +77,7 @@ export default function URLResultCard({ result, onOpenAnalytics }) {
           </div>
 
           <div>
-            <span className="text-xs text-slate-400 block mb-1">Destino original:</span>
+            <span className="text-xs text-slate-400 block mb-1">{t('result.originalUrlLabel')}</span>
             <p className="text-xs text-slate-300 truncate max-w-md font-mono bg-slate-900/40 p-2 rounded-lg border border-slate-800">
               {result.original_url}
             </p>
@@ -87,7 +89,7 @@ export default function URLResultCard({ result, onOpenAnalytics }) {
               className="px-4 py-2 bg-slate-700/60 hover:bg-slate-700 text-slate-200 rounded-xl text-xs sm:text-sm font-medium flex items-center gap-2 border border-slate-600/60 transition-colors cursor-pointer"
             >
               <BarChart3 className="w-4 h-4 text-purple-400" />
-              Ver Analíticas de Clics
+              {t('result.viewAnalytics')}
             </button>
           </div>
         </div>
@@ -97,7 +99,7 @@ export default function URLResultCard({ result, onOpenAnalytics }) {
           <div className="bg-white p-2.5 rounded-lg shadow-inner">
             <img
               src={qrImageUrl}
-              alt={`QR para ${result.short_code}`}
+              alt={t('result.qrAlt', { code: result.short_code })}
               className="w-32 h-32 md:w-36 md:h-36 object-contain"
             />
           </div>
@@ -107,7 +109,7 @@ export default function URLResultCard({ result, onOpenAnalytics }) {
             className="mt-3 w-full py-1.5 px-3 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium rounded-lg flex items-center justify-center gap-1.5 transition-colors cursor-pointer border border-slate-700"
           >
             <Download className="w-3.5 h-3.5 text-indigo-400" />
-            Descargar QR
+            {t('result.downloadQR')}
           </button>
         </div>
       </div>

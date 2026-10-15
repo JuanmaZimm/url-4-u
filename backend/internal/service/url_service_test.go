@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/juan-manuel-zimmermann/url-4-u/backend/internal/model"
+	"github.com/JuanmaZimm/url-4-u/backend/internal/model"
 )
 
 type mockRepo struct {

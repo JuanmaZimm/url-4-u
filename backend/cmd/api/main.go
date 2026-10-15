@@ -14,10 +14,10 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 
-	"github.com/juan-manuel-zimmermann/url-4-u/backend/internal/config"
-	"github.com/juan-manuel-zimmermann/url-4-u/backend/internal/handler"
-	"github.com/juan-manuel-zimmermann/url-4-u/backend/internal/repository"
-	"github.com/juan-manuel-zimmermann/url-4-u/backend/internal/service"
+	"github.com/JuanmaZimm/url-4-u/backend/internal/config"
+	"github.com/JuanmaZimm/url-4-u/backend/internal/handler"
+	"github.com/JuanmaZimm/url-4-u/backend/internal/repository"
+	"github.com/JuanmaZimm/url-4-u/backend/internal/service"
 )
 
 func main() {

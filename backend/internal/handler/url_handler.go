@@ -9,9 +9,9 @@ import (
 	"strings"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/juan-manuel-zimmermann/url-4-u/backend/internal/model"
-	"github.com/juan-manuel-zimmermann/url-4-u/backend/internal/repository"
-	"github.com/juan-manuel-zimmermann/url-4-u/backend/internal/service"
+	"github.com/JuanmaZimm/url-4-u/backend/internal/model"
+	"github.com/JuanmaZimm/url-4-u/backend/internal/repository"
+	"github.com/JuanmaZimm/url-4-u/backend/internal/service"
 )
 
 type URLHandler struct {

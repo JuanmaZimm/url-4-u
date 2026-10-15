@@ -1,0 +1,83 @@
+{
+  "navbar": {
+    "version": "v1.0 • Go + React",
+    "github": "GitHub",
+    "language": "Idioma",
+    "english": "Inglés",
+    "spanish": "Español"
+  },
+  "hero": {
+    "badge": "Acortador + QR + Métricas en Vivo",
+    "title1": "Acorta tus enlaces.",
+    "title2": "Mide cada interacción.",
+    "description": "Crea URLs cortas con identificadores únicos o alias personalizados, genera códigos QR instantáneos para impresión o compartir, y consulta analíticas de visitas en tiempo real."
+  },
+  "features": {
+    "fastTitle": "Ultra Rápido",
+    "fastDesc": "Motor HTTP de baja latencia escrito en Go con redirecciones concurrentes inmediatas.",
+    "securityTitle": "Privacidad y Seguridad",
+    "securityDesc": "IPs anonimizadas mediante hash SHA-256 para respetar la privacidad en analíticas.",
+    "analyticsTitle": "Métricas Detalladas",
+    "analyticsDesc": "Conteo de clics, fecha, fuentes de tráfico (referrers), navegadores y tipos de dispositivo."
+  },
+  "form": {
+    "label": "Ingresa el enlace largo",
+    "placeholder": "https://ejemplo.com/tu-articulo-o-enlace-muy-largo...",
+    "showAlias": "Personalizar enlace (alias opcional)",
+    "hideAlias": "Ocultar alias personalizado",
+    "aliasLabel": "Alias personalizado (3-30 caracteres alfanuméricos)",
+    "aliasPlaceholder": "mi-enlace-especial",
+    "shortenBtn": "Acortar Enlace",
+    "loadingBtn": "Generando URL corta y QR...",
+    "errors": {
+      "empty": "Por favor ingresa una URL válida",
+      "invalid": "Formato de URL no válido. Asegúrate de incluir http:// o https://",
+      "default": "Error al acortar la URL"
+    }
+  },
+  "result": {
+    "success": "¡Enlace acortado con éxito!",
+    "shortUrlLabel": "Tu enlace corto:",
+    "copy": "Copiar",
+    "copied": "¡Copiado!",
+    "originalUrlLabel": "Destino original:",
+    "viewAnalytics": "Ver Analíticas de Clics",
+    "downloadQR": "Descargar QR",
+    "qrAlt": "QR para {{code}}"
+  },
+  "recent": {
+    "title": "Tus Enlaces Recientes",
+    "subtitle": "Historial de URLs acortadas almacenadas localmente en SQLite",
+    "refresh": "Actualizar listado",
+    "emptyTitle": "Aún no has generado ningún enlace corto",
+    "emptySubtitle": "Pega una URL arriba para comenzar a medir analíticas y generar QRs",
+    "thShort": "Enlace Corto",
+    "thOriginal": "URL Destino",
+    "thClicks": "Clics",
+    "thCreated": "Creado",
+    "thActions": "Acciones",
+    "copyTitle": "Copiar al portapapeles",
+    "qrTitle": "Ver Código QR",
+    "analyticsTitle": "Ver Estadísticas"
+  },
+  "qrModal": {
+    "downloadBtn": "Descargar Código QR (PNG)"
+  },
+  "analyticsModal": {
+    "title": "Analíticas:",
+    "loading": "Obteniendo métricas en tiempo real...",
+    "loadError": "Error al cargar las métricas",
+    "noData": "Sin datos registrados aún",
+    "totalClicks": "Total Clics",
+    "trafficSources": "Fuentes de Tráfico",
+    "lastClick": "Último Clic",
+    "noVisits": "Sin visitas",
+    "referrers": "Sitios de Referencia (Referrers)",
+    "devices": "Dispositivos",
+    "browsers": "Navegadores",
+    "recentActivity": "Actividad Reciente por Fecha"
+  },
+  "footer": {
+    "text": "URL-4-U • Construido con <1>Go</1>, <3>React + Vite</3> y <5>SQLite</5>."
+  }
+}
