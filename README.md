@@ -1,6 +1,11 @@
 # 🔗 URL-4-U
 
 > **URL-4-U** is a modern, fast, and lightweight URL shortener built with **Go** and **React + Vite**, featuring instant QR code generation and real-time analytics.
+>
+> 🌐 **Live Demo:** [https://url-4-u.vercel.app](https://url-4-u.vercel.app)
+
+> [!NOTE]
+> **Free Tier Note (Backend Cold Starts):** The backend API is hosted on Render's free tier. Free instances spin down during periods of inactivity. If the service is sleeping, the first request may take ~30-50 seconds to wake up; subsequent requests are immediate.
 
 ---
 
