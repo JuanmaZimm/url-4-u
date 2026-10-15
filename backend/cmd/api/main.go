@@ -59,11 +59,13 @@ func main() {
 	}))
 
 	// Health Check
-	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {
+	healthHandler := func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte(`{"status":"ok","service":"url-4-u","timestamp":"` + time.Now().UTC().Format(time.RFC3339) + `"}`))
-	})
+	}
+	r.Get("/health", healthHandler)
+	r.Get("/healthz", healthHandler)
 
 	// Redirection Endpoint (GET and HEAD for link unfurlers)
 	r.Get("/r/{code}", urlHandler.Redirect)
